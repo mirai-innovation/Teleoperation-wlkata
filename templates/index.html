@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Dobot Magician</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Control de Dobot Magician</h1>
+    </header>
+
+    <main class="container">
+        <section class="video-section">
+            <h3>Transmisión en Vivo</h3>
+            <div class="video-wrapper">
+                <img src="http://127.0.0.1:5001/video_feed" alt="Transmisión de la cámara">
+            </div>
+        </section>
+
+        <section class="control-section">
+            <h3>Controles del Dobot</h3>
+            <form id="control-form">
+                <div class="slider-group">
+                    <div class="slider">
+                        <label for="x">Control de X (mm)</label>
+                        <input type="range" id="x" name="x" min="170" max="240" value="200" oninput="updateLabel('x')">
+                        <span id="x-value">200</span>
+                    </div>
+                    <div class="slider">
+                        <label for="y">Control de Y (mm)</label>
+                        <input type="range" id="y" name="y" min="-150" max="150" value="0" oninput="updateLabel('y')">
+                        <span id="y-value">0</span>
+                    </div>
+                    <div class="slider">
+                        <label for="z">Control de Z (mm)</label>
+                        <input type="range" id="z" name="z" min="0" max="100" value="20" oninput="updateLabel('z')">
+                        <span id="z-value">20</span>
+                    </div>
+                    <div class="slider">
+                        <label for="r">Control de Rotación (°)</label>
+                        <input type="range" id="r" name="r" min="-180" max="180" value="0" oninput="updateLabel('r')">
+                        <span id="r-value">0</span>
+                    </div>
+                </div>
+                <button type="button" class="control-button" onclick="sendCommand()">Mover Dobot</button>
+            </form>
+            <div id="response-message"></div>
+        </section>
+    </main>
+
+    <script>
+        function updateLabel(id) {
+            document.getElementById(id + '-value').innerText = document.getElementById(id).value;
+        }
+
+        function sendCommand() {
+            const x = $('#x').val();
+            const y = $('#y').val();
+            const z = $('#z').val();
+            const r = $('#r').val();
+
+            $.ajax({
+                url: '/control',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ x: x, y: y, z: z, r: r }),
+                success: function (response) {
+                    $('#response-message').text(response.message).css('color', 'green');
+                },
+                error: function (xhr) {
+                    $('#response-message').text('Error: ' + xhr.responseJSON.message).css('color', 'red');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
