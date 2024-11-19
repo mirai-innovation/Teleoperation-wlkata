@@ -3,8 +3,8 @@ import requests
 
 app = Flask(__name__)
 
-CONTROL_SERVER_URL = 'https://af59-240b-250-2c0-f800-411f-42ae-44b-a6bc.ngrok-free.app/control'  # Cambia <LOCAL_IP> a la IP de tu máquina local
-VIDEO_FEED_URL = 'https://af59-240b-250-2c0-f800-411f-42ae-44b-a6bc.ngrok-free.app/video_feed'  # Cambia <LOCAL_IP> a la IP de tu máquina local
+CONTROL_SERVER_URL = 'https://c458-240b-250-2c0-f800-411f-42ae-44b-a6bc.ngrok-free.app/control'  # Cambia <LOCAL_IP> a la IP de tu máquina local
+VIDEO_FEED_URL = 'https://c458-240b-250-2c0-f800-411f-42ae-44b-a6bc.ngrok-free.app/video_feed'  # Cambia <LOCAL_IP> a la IP de tu máquina local
 
 @app.route('/')
 def index():
