@@ -3,11 +3,12 @@ import requests
 
 app = Flask(__name__)
 
-CONTROL_SERVER_URL = 'http://127.0.0.1:5001/control'  # URL del servidor del Dobot
+CONTROL_SERVER_URL = 'http://192.168.10.112:5001/control'  # Cambia <LOCAL_IP> a la IP de tu máquina local
+VIDEO_FEED_URL = 'http://192.168.10.112:5001/video_feed'  # Cambia <LOCAL_IP> a la IP de tu máquina local
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', video_feed_url=VIDEO_FEED_URL)
 
 @app.route('/control', methods=['POST'])
 def control():
