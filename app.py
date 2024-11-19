@@ -3,8 +3,8 @@ import requests
 
 app = Flask(__name__)
 
-CONTROL_SERVER_URL = 'http://192.168.10.112:5001/control'  # Cambia <LOCAL_IP> a la IP de tu máquina local
-VIDEO_FEED_URL = 'http://192.168.10.112:5001/video_feed'  # Cambia <LOCAL_IP> a la IP de tu máquina local
+CONTROL_SERVER_URL = 'http://172.20.10.13:5001/control'  # Cambia <LOCAL_IP> a la IP de tu máquina local
+VIDEO_FEED_URL = 'http://172.20.10.13:5001/video_feed'  # Cambia <LOCAL_IP> a la IP de tu máquina local
 
 @app.route('/')
 def index():
