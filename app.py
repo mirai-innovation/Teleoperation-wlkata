@@ -3,8 +3,8 @@ import requests
 
 app = Flask(__name__)
 
-CONTROL_SERVER_URL = 'http://mirai-teleoperation.zapto.org:5001/control'  # Cambia <LOCAL_IP> a la IP de tu máquina local
-VIDEO_FEED_URL = 'http://mirai-teleoperation.zapto.org:5001/video_feed'  # Cambia <LOCAL_IP> a la IP de tu máquina local
+CONTROL_SERVER_URL = ' https://5c22-240b-250-2c0-f800-b58c-4087-be9d-86db.ngrok-free.app/control'  # Cambia <LOCAL_IP> a la IP de tu máquina local
+VIDEO_FEED_URL = 'https://5c22-240b-250-2c0-f800-b58c-4087-be9d-86db.ngrok-free.app/video_feed'  # Cambia <LOCAL_IP> a la IP de tu máquina local
 
 @app.route('/')
 def index():
