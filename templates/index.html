@@ -78,11 +78,11 @@
             });
         }
 
-        // Actualizar el feed de video cada segundo para evitar problemas de caché
-        setInterval(function() {
-            var img = document.getElementById("video-feed");
-            img.src = "{{ video_feed_url }}" + "?rand=" + Math.random();
-        }, 1000);
+        // Auto-recargar la imagen cada 500ms para evitar el problema de no actualizar
+        setInterval(() => {
+            const videoElement = document.getElementById('video-feed');
+            videoElement.src = "{{ video_feed_url }}" + "?t=" + new Date().getTime();
+        }, 500);
     </script>
 </body>
 
