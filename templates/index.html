@@ -18,7 +18,10 @@
         <section class="video-section">
             <h3>Transmisión en Vivo</h3>
             <div class="video-wrapper">
-                <img id="video-feed" src="{{ video_feed_url }}" alt="Transmisión de la cámara">
+                <video id="video-feed" autoplay playsinline>
+                    <source src="{{ video_feed_url }}" type="video/mp4">
+                    Tu navegador no soporta video en HTML5.
+                </video>
             </div>
         </section>
 
@@ -77,12 +80,6 @@
                 }
             });
         }
-
-        // Auto-recargar la imagen cada 500ms para evitar el problema de no actualizar
-        setInterval(() => {
-            const videoElement = document.getElementById('video-feed');
-            videoElement.src = "{{ video_feed_url }}" + "?t=" + new Date().getTime();
-        }, 500);
     </script>
 </body>
 
