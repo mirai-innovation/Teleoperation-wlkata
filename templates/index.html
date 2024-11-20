@@ -58,7 +58,10 @@
                 <section class="video-section">
                     <h3 class="text-center mb-4">Transmisión en Vivo</h3>
                     <div class="video-wrapper">
-                        <img src="{{ video_feed_url }}" alt="Transmisión de la cámara" class="img-fluid rounded">
+                        <video id="video-feed" class="img-fluid rounded" autoplay playsinline>
+                            <source src="{{ video_feed_url }}" type="video/mp4">
+                            Tu navegador no soporta la visualización del video.
+                        </video>
                     </div>
                 </section>
             </div>
