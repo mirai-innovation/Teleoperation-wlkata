@@ -18,10 +18,7 @@
         <section class="video-section">
             <h3>Transmisión en Vivo</h3>
             <div class="video-wrapper">
-                <video id="video-feed" autoplay playsinline>
-                    <source src="{{ video_feed_url }}" type="video/mp4">
-                    Tu navegador no soporta video en HTML5.
-                </video>
+                <iframe src="{{ video_feed_url }}" width="800" height="600" frameborder="0" allowfullscreen></iframe>
             </div>
         </section>
 
