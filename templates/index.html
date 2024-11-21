@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Dobot Magician</title>
+    <title>Control de WLKATA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
@@ -44,12 +44,16 @@
         .slider {
             margin-bottom: 15px;
         }
+
+        #wlkata-status {
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <header class="header">
-        <h1>Control de Dobot Magician</h1>
+        <h1>Control de WLKATA</h1>
     </header>
 
     <div class="container my-4">
@@ -58,22 +62,22 @@
                 <section class="video-section">
                     <h3 class="text-center mb-4">Transmisión en Vivo</h3>
                     <div class="video-wrapper">
-                        <video id="video-feed" class="img-fluid rounded" autoplay playsinline>
-                            <source src="{{ video_feed_url }}" type="video/mp4">
-                            Tu navegador no soporta la visualización del video.
-                        </video>
+                        <img src="{{ video_feed_url }}" alt="Transmisión de la cámara" class="img-fluid rounded">
                     </div>
                 </section>
             </div>
             <div class="col-md-6">
                 <section class="control-section">
-                    <h3 class="text-center mb-4">Controles del Dobot</h3>
+                    <h3 class="text-center mb-4">Controles del WLKATA</h3>
+                    <p id="wlkata-status" class="text-center text-danger">
+                        Estado del WLKATA: {{ 'Conectado' if wlkata_connected else 'Desconectado' }}
+                    </p>
                     <form id="control-form">
                         <div class="slider-group">
                             <div class="slider">
                                 <label for="x" class="form-label">Control de X (mm)</label>
-                                <input type="range" class="form-range" id="x" name="x" min="170" max="240" value="200" oninput="updateLabel('x')">
-                                <span id="x-value">200</span>
+                                <input type="range" class="form-range" id="x" name="x" min="0" max="320" value="160" oninput="updateLabel('x')">
+                                <span id="x-value">160</span>
                             </div>
                             <div class="slider">
                                 <label for="y" class="form-label">Control de Y (mm)</label>
@@ -82,8 +86,8 @@
                             </div>
                             <div class="slider">
                                 <label for="z" class="form-label">Control de Z (mm)</label>
-                                <input type="range" class="form-range" id="z" name="z" min="0" max="100" value="20" oninput="updateLabel('z')">
-                                <span id="z-value">20</span>
+                                <input type="range" class="form-range" id="z" name="z" min="0" max="130" value="100" oninput="updateLabel('z')">
+                                <span id="z-value">100</span>
                             </div>
                             <div class="slider">
                                 <label for="r" class="form-label">Control de Rotación (°)</label>
@@ -91,7 +95,8 @@
                                 <span id="r-value">0</span>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary control-button" onclick="sendCommand()">Mover Dobot</button>
+                        <button type="button" class="btn btn-primary control-button" onclick="sendCommand()">Mover WLKATA</button>
+                        <button type="button" class="btn btn-secondary control-button mt-3" onclick="moveHome()">Mover a Home</button>
                     </form>
                     <div id="response-message" class="mt-3 text-center"></div>
                 </section>
@@ -115,6 +120,19 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ x: x, y: y, z: z, r: r }),
+                success: function (response) {
+                    $('#response-message').text(response.message).css('color', 'green');
+                },
+                error: function (xhr) {
+                    $('#response-message').text('Error: ' + xhr.responseJSON.message).css('color', 'red');
+                }
+            });
+        }
+
+        function moveHome() {
+            $.ajax({
+                url: '/home',
+                type: 'POST',
                 success: function (response) {
                     $('#response-message').text(response.message).css('color', 'green');
                 },
